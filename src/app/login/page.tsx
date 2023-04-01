@@ -70,7 +70,7 @@ export default function LoginPage() {
     return (
         <div className={styles['flex-container']}>
             <div className={styles['left-column']}>
-                <p>Contenido de la primera parte</p>
+                
             </div>
             <div className={styles['right-column']}>
                 <div className={styles['logo-container']}>
@@ -114,6 +114,7 @@ export default function LoginPage() {
                 <button onClick={submitLogin} className={`${styles['login-button']}`}>
                     Iniciar sesión
                 </button>
+                
 
             </div>
         </div>
