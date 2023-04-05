@@ -126,8 +126,9 @@
         color: white;
     }
 
+    
     .login-button {
-        height: 60px;
+        height: 40px;
         width: 80%;
         background-color: #960200;
         color: white;
@@ -136,7 +137,7 @@
         font-family: 'Montserrat', sans-serif;
         font-weight: bold;
         font-size: 16px;
-        margin-top: 50px;
+        margin-top: 30px;
         border-radius: 6px;
     }
 
@@ -277,7 +278,7 @@
 
     .login-button {
         height: 40px;
-        width: 50%;
+        width: 70%;
         background-color: #960200;
         color: white;
         border: none;

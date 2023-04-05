@@ -4,15 +4,14 @@ import styles from './login.module.css'
 import { useEffect, useState } from 'react';
 import useAxios from "axios-hooks";
 import { useAuthContext } from '../context/authContext';
+import Data from '../interfaces/data';
+import { useRouter } from 'next/navigation';
 
-interface Data {
-    tokens: {
-        accessToken: string;
-        refreshToken: string;
-    };
-}
+
+
 
 export default function LoginPage() {
+    const router = useRouter();
 
     //Variables de username y password
     const [usernameValue, setusernameValue] = useState('');
@@ -59,6 +58,8 @@ export default function LoginPage() {
 
 
 
+
+
     function handleInputUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setusernameValue(event.target.value);
     }
@@ -70,7 +71,7 @@ export default function LoginPage() {
     return (
         <div className={styles['flex-container']}>
             <div className={styles['left-column']}>
-                
+
             </div>
             <div className={styles['right-column']}>
                 <div className={styles['logo-container']}>
@@ -114,7 +115,9 @@ export default function LoginPage() {
                 <button onClick={submitLogin} className={`${styles['login-button']}`}>
                     Iniciar sesión
                 </button>
-                
+                <button onClick={e => router.push('/register')} className={`${styles['login-button']}`}>
+                    Registrarse
+                </button>
 
             </div>
         </div>
