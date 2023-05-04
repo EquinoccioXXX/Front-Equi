@@ -43,6 +43,7 @@ export default function LoginPage() {
         });
         console.log(data.data);
         setToken(data.data.tokens.accessToken);
+        router.push('/inicio');
 
     };
 

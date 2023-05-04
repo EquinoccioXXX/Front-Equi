@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import useAxios from "axios-hooks";
 import { useAuthContext } from '../context/authContext';
 import Data from '../interfaces/data';
+import { useRouter } from 'next/navigation';
 
 //Interfaz para el tipo de dato del formulario
 
@@ -23,6 +24,7 @@ interface FormData {
 }
 
 export default function LoginPage() {
+    const router = useRouter();
 
     //Token como contexto
     const { token, setToken } = useAuthContext();
@@ -197,7 +199,7 @@ export default function LoginPage() {
         });
         console.log(data.data);
         setToken(data.data.tokens.accessToken);
-
+        router.push('/inicio');
     };
 
 
