@@ -11,8 +11,8 @@ interface FormData {
     InvFechaRegsitro: string;
     InvNumFactura: string;
     InvCantidad: string;
-    InvPrecioPorUnidad: string;
-    InvDescripcionIngreso: string;
+    InvPrecioPorUnidad: number;
+    InvDescripcionIngreso: number;
     InvCodControl: string;
     InvNumAutorizacion: string;
     InvIdProveedor: string;
@@ -26,7 +26,7 @@ export default function LoginPage() {
     const { token, setToken } = useAuthContext();
 
     //useState para controlar el estado del formulario
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState({
         InvFechaRegsitro: '',
         InvNumFactura: '',
         InvCantidad: '',
@@ -146,16 +146,16 @@ export default function LoginPage() {
         const data = await register({
 
             data: {
-                "InvFechaRegsitro": nuevaFecha,
-                "InvNumFactura": formData.InvNumFactura,
+                "InvFechaRegsitro": String(nuevaFecha),
+                "InvNumFactura": String(formData.InvNumFactura),
                 "InvCantidad": parseInt(formData.InvCantidad),
                 "InvPrecioPorUnidad": parseInt(formData.InvPrecioPorUnidad),
-                "InvDescripcionIngreso": formData.InvDescripcionIngreso,
-                "InvCodControl": formData.InvCodControl,
-                "InvNumAutorizacion": formData.InvNumAutorizacion,
-                "InvIdProveedor": formData.InvIdProveedor,
-                "InvIdProducto": formData.InvIdProducto,
-                "InvTipoIngreso": formData.InvTipoIngreso
+                "InvDescripcionIngreso": String(formData.InvDescripcionIngreso),
+                "InvCodControl": String(formData.InvCodControl),
+                "InvNumAutorizacion": String(formData.InvNumAutorizacion),
+                "InvIdProveedor": String(formData.InvIdProveedor),
+                "InvIdProducto": String(formData.InvIdProducto),
+                "InvTipoIngreso": String(formData.InvTipoIngreso)
 
             }
             ,
