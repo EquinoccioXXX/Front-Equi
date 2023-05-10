@@ -3,9 +3,7 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
-        align-items: center;
         background-color: #E7EFC5;
-        overflow: hidden;
     }
 
     .content {
@@ -20,20 +18,18 @@
         display: flex;
         flex-direction: column;
         flex: 1;
-        width: 33%;
         height: 100%;
-
-        margin: 20px;
+        padding: 20px;
     }
 
     .columns-end {
         display: flex;
         flex-direction: column;
         flex: 1;
-        width: 33%;
         height: 100%;
-
-        margin: 20px;
+        justify-content: space-between;
+        padding-bottom: 60px;
+        padding: 20px;
     }
 
     .title {
@@ -54,30 +50,32 @@
     }
 
     .evento-img {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        height: 500px;
-        margin-top: 30px;
-        border-radius: 30px;
-        overflow: hidden;
+        height: 100%;
+        justify-content: center;
     }
 
     .evento-img img {
         width: 100%;
         height: 100%;
+        max-height: 500px;
+        border-radius: 30px;
     }
 
     .grafica {
         width: 100%;
-        height: 230px;
+        height: 100%;
+        max-height: 200px;
         margin-top: 30px;
-        margin-bottom: 15px;
         border-radius: 15px;
-        overflow: hidden;
     }
 
     .grafica img {
         width: 100%;
         height: 100%;
+        max-height: 200px;
     }
 
 

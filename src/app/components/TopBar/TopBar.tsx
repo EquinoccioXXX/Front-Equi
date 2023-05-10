@@ -3,11 +3,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import styles from './TopBar.module.css';
 const TopBar: React.FC = () => {
     return (
         <div className={styles.topBar}>
-            <div className={styles.appName}>EQUINOCCIO</div>
+            <div className={styles.firstSection}>
+                <Link href="/inicio">
+                    <div className={styles.arrow}>
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                    </div>
+                </Link>
+                <div className={styles.appName}>EQUINOCCIO</div>
+            </div>
             <div className={styles.userSection}>
                 <div className={styles.userImage}>
                     <Image src="/assets/profile.png" alt="User image" width={50} height={50} />

@@ -9,6 +9,22 @@
     height: 96px;
 }
 
+.firstSection {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    display: flex;
+    font-size: 30px;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
 .appName {
     font-size: 32px;
     font-family: 'Bebas Neue', sans-serif;
@@ -48,6 +64,22 @@
         
         width: 100%;
         height: 60px;
+    }
+
+    .firstSection {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .arrow {
+        display: flex;
+        font-size: 20px;
+        cursor: pointer;
+        margin-right: 20px;
+        margin-left: 20px;
     }
 
     .appName {

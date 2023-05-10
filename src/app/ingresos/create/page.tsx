@@ -24,7 +24,7 @@ export default function CreateIngresoPage() {
         const month = (now.getMonth() + 1).toString().padStart(2, '0');
         const year = now.getFullYear();
         const formattedDate = `${day}/${month}/${year}`;
-        console.log(formattedDate); 
+        console.log(formattedDate);
     };
 
     const handleInputChange = (
@@ -37,106 +37,107 @@ export default function CreateIngresoPage() {
 
     return (
         <div className={styles['flex-container']}>
-            <TopBar/>
+            <TopBar />
+            <div className={styles['content-container']}>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles['form-container']}>
+                        <div className={styles['inputs-container']}>
+                            <div className={styles['column']}>
+                                <label htmlFor="fechaIngreso">Fecha de ingreso:</label>
+                                <input
+                                    type="date"
+                                    id="fechaIngreso"
+                                    name="fechaIngreso"
+                                    value={formState.fechaIngreso}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                />
 
-            <form onSubmit={handleSubmit}>
-                <div className={styles['form-container']}>
-                    <div className={styles['inputs-container']}>
-                        <div className={styles['column']}>
-                            <label htmlFor="fechaIngreso">Fecha de ingreso:</label>
-                            <input
-                                type="date"
-                                id="fechaIngreso"
-                                name="fechaIngreso"
-                                value={formState.fechaIngreso}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            />
+                                <label htmlFor="cantidad">Cantidad:</label>
+                                <input
+                                    type="number"
+                                    id="cantidad"
+                                    name="cantidad"
+                                    value={formState.cantidad}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                />
 
-                            <label htmlFor="cantidad">Cantidad:</label>
-                            <input
-                                type="number"
-                                id="cantidad"
-                                name="cantidad"
-                                value={formState.cantidad}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            />
+                                <label htmlFor="precioUnidad">Precio por unidad:</label>
+                                <input
+                                    type="number"
+                                    id="precioUnidad"
+                                    name="precioUnidad"
+                                    value={formState.precioUnidad}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                />
 
-                            <label htmlFor="precioUnidad">Precio por unidad:</label>
-                            <input
-                                type="number"
-                                id="precioUnidad"
-                                name="precioUnidad"
-                                value={formState.precioUnidad}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            />
+                                <label htmlFor="descripcion">Descripción:</label>
+                                <input
+                                    type="text"
+                                    id="descripcion"
+                                    name="descripcion"
+                                    value={formState.descripcion}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                />
+                            </div>
+                            <div className={styles['column']}>
+                                <label htmlFor="proveedor">Proveedor:</label>
+                                <select
+                                    id="proveedor"
+                                    name="proveedor"
+                                    value={formState.proveedor}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                >
+                                    <option value="">Seleccione un proveedor</option>
+                                    <option value="proveedor1">Proveedor 1</option>
+                                    <option value="proveedor2">Proveedor 2</option>
+                                    <option value="proveedor3">Proveedor 3</option>
+                                </select>
 
-                            <label htmlFor="descripcion">Descripción:</label>
-                            <input
-                                type="text"
-                                id="descripcion"
-                                name="descripcion"
-                                value={formState.descripcion}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            />
-                        </div>
-                        <div className={styles['column']}>
-                            <label htmlFor="proveedor">Proveedor:</label>
-                            <select
-                                id="proveedor"
-                                name="proveedor"
-                                value={formState.proveedor}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            >
-                                <option value="">Seleccione un proveedor</option>
-                                <option value="proveedor1">Proveedor 1</option>
-                                <option value="proveedor2">Proveedor 2</option>
-                                <option value="proveedor3">Proveedor 3</option>
-                            </select>
+                                <label htmlFor="producto">Producto:</label>
+                                <select
+                                    id="producto"
+                                    name="producto"
+                                    value={formState.producto}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                >
+                                    <option value="">Seleccione un producto</option>
+                                    <option value="producto1">Producto 1</option>
+                                    <option value="producto2">Producto 2</option>
+                                    <option value="producto3">Producto 3</option>
+                                </select>
 
-                            <label htmlFor="producto">Producto:</label>
-                            <select
-                                id="producto"
-                                name="producto"
-                                value={formState.producto}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            >
-                                <option value="">Seleccione un producto</option>
-                                <option value="producto1">Producto 1</option>
-                                <option value="producto2">Producto 2</option>
-                                <option value="producto3">Producto 3</option>
-                            </select>
-
-                            <label htmlFor="tipoIngreso">Tipo de ingreso:</label>
-                            <select
-                                id="tipoIngreso"
-                                name="tipoIngreso"
-                                value={formState.tipoIngreso}
-                                onChange={handleInputChange}
-                                className={styles.formInput}
-                                required
-                            >
-                                <option value="">Seleccione un tipo de ingreso</option>
-                                <option value="tipo1">Tipo 1</option>
-                                <option value="tipo2">Tipo 2</option>
-                                <option value="tipo3">Tipo 3</option>
-                            </select>
+                                <label htmlFor="tipoIngreso">Tipo de ingreso:</label>
+                                <select
+                                    id="tipoIngreso"
+                                    name="tipoIngreso"
+                                    value={formState.tipoIngreso}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                    required
+                                >
+                                    <option value="">Seleccione un tipo de ingreso</option>
+                                    <option value="tipo1">Tipo 1</option>
+                                    <option value="tipo2">Tipo 2</option>
+                                    <option value="tipo3">Tipo 3</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <input type="submit" value="Enviar" className={styles['button-submit']} />
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </div >
     )
 }
