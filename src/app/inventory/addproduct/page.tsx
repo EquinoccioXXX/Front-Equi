@@ -18,6 +18,7 @@ interface FormData {
     InvIdProveedor: string;
     InvIdProducto: string;
     InvTipoIngreso: string;
+    InvNumMedidas: number;
 }
 
 export default function LoginPage() {
@@ -36,7 +37,8 @@ export default function LoginPage() {
         InvNumAutorizacion: '',
         InvIdProveedor: '',
         InvIdProducto: '',
-        InvTipoIngreso: ''
+        InvTipoIngreso: '',
+        InvNumMedidas: ''
     });
 
     //UseState para controlar el estado de los errores
@@ -50,7 +52,8 @@ export default function LoginPage() {
         InvNumAutorizacion: '',
         InvIdProveedor: '',
         InvIdProducto: '',
-        InvTipoIngreso: ''
+        InvTipoIngreso: '',
+        InvNumMedidas: ''
     });
 
     //Control de llenado del formulario
@@ -78,7 +81,9 @@ export default function LoginPage() {
             InvNumAutorizacion: '',
             InvIdProveedor: '',
             InvIdProducto: '',
-            InvTipoIngreso: ''
+            InvTipoIngreso: '',
+            InvNumMedidas: ''
+
         };
 
         if (!formData.InvFechaRegsitro) {
@@ -114,6 +119,10 @@ export default function LoginPage() {
         }
 
         if (!formData.InvTipoIngreso) {
+            newErrors.InvTipoIngreso = 'El tipo de ingreso es requerido';
+        }
+
+        if (!formData.InvNumMedidas) {
             newErrors.InvTipoIngreso = 'El tipo de ingreso es requerido';
         }
 
@@ -155,7 +164,8 @@ export default function LoginPage() {
                 "InvNumAutorizacion": String(formData.InvNumAutorizacion),
                 "InvIdProveedor": String(formData.InvIdProveedor),
                 "InvIdProducto": String(formData.InvIdProducto),
-                "InvTipoIngreso": String(formData.InvTipoIngreso)
+                "InvTipoIngreso": String(formData.InvTipoIngreso),
+                "InvNumMedidas": parseInt(formData.InvNumMedidas)
 
             }
             ,
@@ -237,7 +247,11 @@ export default function LoginPage() {
                         </div>
                         {errors.InvTipoIngreso && <span className={styles['error']}>{errors.InvTipoIngreso}</span>}
 
-
+                        <label htmlFor="fecha_nacimiento">Numero de Medidas:</label>
+                        <div className={styles['input-container']}>
+                            <input type="text" name="InvNumMedidas" value={formData.InvTipoIngreso} onChange={handleInputChange} className={styles['input-field']} />
+                        </div>
+                        {errors.InvNumMedidas && <span className={styles['error']}>{errors.InvNumMedidas}</span>}
 
                     </div>
 
@@ -250,4 +264,3 @@ export default function LoginPage() {
 
     );
 };
-
