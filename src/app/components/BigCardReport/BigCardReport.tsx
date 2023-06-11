@@ -16,7 +16,7 @@ interface BigCardProps {
 
 
 const BigCardReport = ({ image, title, urlReport}: BigCardProps) => {
-    const [{ data, loading, error }, downloadReport] = useAxios<>(
+    const [{ data, loading, error }, downloadReport] = useAxios<Blob>(
         {
           url: urlReport,
           method: 'GET',

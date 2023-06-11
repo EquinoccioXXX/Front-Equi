@@ -1,0 +1,50 @@
+.content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+.title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.data {
+    margin-bottom: 10px;
+    /* Mayor espacio entre cada dato */
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.acceptButton {
+    background-color: green;
+    color: white;
+}
+
+.rejectButton {
+    background-color: red;
+    color: white;
+}
+
+.button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.pageContent {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}

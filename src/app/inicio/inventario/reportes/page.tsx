@@ -4,24 +4,93 @@ import React, { useEffect, useState } from 'react';
 import useAxios from "axios-hooks";
 import axios from 'axios';
 import TopBar from '../../../components/TopBar/TopBar';
+import querystring from "querystring";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function InventarioReportePage() {
     const [formState, setFormState] = useState({
-        fecha: "",
+        fechaInicio: "",
+        fechaFin: "",
+        campo: "",
         producto: "",
         cantidad: "",
+        orden: "",
     });
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    interface QueryParams {
+        date1?: string;
+        date2?: string;
+        field?: string;
+        producto?: string;
+        cantidad?: string;
+        asc?: string;
+    }
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log("Form submitted with state:", formState);
-        const now = new Date();
-        //Obtener la fecha actual
-        const day = now.getDate().toString().padStart(2, '0');
-        const month = (now.getMonth() + 1).toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
-        console.log(formattedDate);
+        const queryParams: QueryParams = {};
+        if (formState.fechaInicio) {
+            const fechaInicio = new Date(formState.fechaInicio);
+            const month = fechaInicio.getUTCMonth() + 1;
+            const day = fechaInicio.getUTCDate();
+            const year = fechaInicio.getUTCFullYear();
+            queryParams.date1 = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+        }
+
+        if (formState.fechaFin) {
+            const fechaFin = new Date(formState.fechaFin);
+            const month = fechaFin.getUTCMonth() + 1;
+            const day = fechaFin.getUTCDate();
+            const year = fechaFin.getUTCFullYear();
+            queryParams.date2 = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+        }
+
+        if (formState.campo) {
+            queryParams.field = formState.campo;
+        }
+
+        if (formState.orden) {
+            if (formState.orden === "ascendente") {
+                queryParams.asc = "true";
+            } else if (formState.orden === "descendente") {
+                queryParams.asc = "false";
+            }
+        }
+
+        if (formState.producto) {
+            queryParams.producto = formState.producto;
+        }
+
+        if (formState.cantidad) {
+            queryParams.cantidad = formState.cantidad;
+        }
+
+
+
+        const queryString = querystring.stringify(queryParams as querystring.ParsedUrlQueryInput, "&");
+        console.log(queryString);
+
+        try {
+            toast.info('La descarga está comenzando...', {
+                autoClose: 2000, // Duración del mensaje en milisegundos (opcional)
+            });
+
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}api/report/inventory?${queryString}`, {
+                responseType: 'blob',
+            });
+
+            const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', 'report.pdf');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error('Error downloading report:', error);
+        }
     };
 
     const handleInputChange = (
@@ -32,7 +101,7 @@ export default function InventarioReportePage() {
     };
 
 
-    const [{ data, loading, error }, downloadReport] = useAxios<>(
+    const [{ data, loading, error }, downloadReport] = useAxios<Blob>(
         {
             url: `${process.env.NEXT_PUBLIC_BASE_URL}api/report/inventory`,
             method: 'GET',
@@ -42,8 +111,13 @@ export default function InventarioReportePage() {
     );
 
     const handleClick = () => {
+        toast.info('La descarga está comenzando...', {
+            autoClose: 2000, // Duración del mensaje en milisegundos (opcional)
+        });
         downloadReport();
     };
+
+
 
     useEffect(() => {
         if (data) {
@@ -68,55 +142,76 @@ export default function InventarioReportePage() {
                     <div className={styles['form-container']}>
                         <div className={styles['inputs-container']}>
                             <div className={styles['column']}>
-                                <label htmlFor="proveedor">Proveedor:</label>
-                                <select
-                                    id="fecha"
-                                    name="fecha"
-                                    value={formState.fecha}
+                                <label htmlFor="fechaInicio">Fecha inicio:</label>
+                                <input
+                                    type="date"
+                                    id="fechaInicio"
+                                    name="fechaInicio"
+                                    value={formState.fechaInicio}
                                     onChange={handleInputChange}
                                     className={styles.formInput}
-                                    required
-                                >
-                                    <option value="">Sin orden</option>
-                                    <option value="reciente">Más reciente</option>
-                                    <option value="antiguo">Más antiguo</option>
-                                </select>
+                                />
+
+                                <label htmlFor="fechaFin">Fecha fin:</label>
+                                <input
+                                    type="date"
+                                    id="fechaFin"
+                                    name="fechaFin"
+                                    value={formState.fechaFin}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                />
+
+                                <label htmlFor="campo">Campo:</label>
+                                <input
+                                    id="campo"
+                                    name="campo"
+                                    value={formState.campo}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                />
 
                                 <label htmlFor="producto">Producto:</label>
-                                <select
+                                <input
                                     id="producto"
                                     name="producto"
                                     value={formState.producto}
                                     onChange={handleInputChange}
                                     className={styles.formInput}
-                                    required
+                                />
+
+                                <label htmlFor="cantidad">Cantidad:</label>
+                                <input
+                                    id="cantidad"
+                                    name="cantidad"
+                                    type="number"
+                                    value={formState.cantidad}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
+                                />
+
+
+                                <label htmlFor="orden">Orden:</label>
+                                <select
+                                    id="orden"
+                                    name="orden"
+                                    value={formState.orden}
+                                    onChange={handleInputChange}
+                                    className={styles.formInput}
                                 >
                                     <option value="">Sin orden</option>
                                     <option value="ascendente">Ascendente</option>
                                     <option value="descendente">Descendente</option>
-                                </select>
-
-                                <label htmlFor="cantidad">Tipo de ingreso:</label>
-                                <select
-                                    id="cantidad"
-                                    name="cantidad"
-                                    value={formState.cantidad}
-                                    onChange={handleInputChange}
-                                    className={styles.formInput}
-                                    required
-                                >
-                                    <option value="">Sin orden</option>
-                                    <option value="mayorAMenor">De mayor a menor</option>
-                                    <option value="menorAMAyor">De menor a mayor</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div className={styles['buttons-container']}>
                         <input type="submit" value="Generar reporte con filtros" className={styles['button-submit']} />
-                        <button className={styles['button-submit']} onClick={handleClick}>Generar reporte general</button>
+                        <button type="button" className={styles['button-submit']} onClick={handleClick}>Generar reporte general</button>
                     </div>
                 </form>
+                <ToastContainer />
             </div>
         </div >
     )
