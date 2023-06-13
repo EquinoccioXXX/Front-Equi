@@ -32,7 +32,7 @@ export default function InventarioReportePage() {
     };
 
 
-    const [{ data, loading, error }, downloadReport] = useAxios<>(
+    const [{ data, loading, error }, downloadReport] = useAxios<Blob>(
         {
             url: `${process.env.NEXT_PUBLIC_BASE_URL}api/report/inventory`,
             method: 'GET',
