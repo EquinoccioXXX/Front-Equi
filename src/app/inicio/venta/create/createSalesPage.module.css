@@ -49,14 +49,13 @@
     margin-bottom: 0.5rem;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    color: #0B0014; 
+    color: #0B0014;
     font-weight: bold;
   }
 
-  .column input,
+  .column input[type="number"],
   .column select {
     display: block;
-    width: 500px;
     padding: 0.5rem;
     border-radius: 0.25rem;
     border: 1px solid #ccc;
@@ -74,7 +73,7 @@
     align-items: center;
   }
 
-  .button-submit {
+  .submit-button {
     height: 40px;
     width: 100%;
     background-color: #960200;
@@ -90,20 +89,135 @@
     margin-left: 20px;
   }
 
-  .button-cancel {
-    flex: 20;
-    width: 100%;
+  .product-button {
     background-color: #960200;
     color: white;
     border: none;
     padding: 10px 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    font-size: 14px;
-    margin-top: 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     border-radius: 6px;
     cursor: pointer;
-    margin-right: 20px;
+  }
+
+  .product-button:hover {
+    background-color: #750100;
+  }
+
+  .product-button:focus {
+    outline: none;
+  }
+
+  .product-button:active {
+    background-color: #550100;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-label {
+    margin-left: 8px;
+    color: #0b0014;
+    /* Color del texto */
+  }
+
+  /* Estilos para el campo de observaciones */
+  .observations-container {
+    margin-top: 16px;
+    color: #0b0014;
+  }
+
+  .observations-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #0B0014;
+    font-weight: bold;
+  }
+
+  .observations-textarea {
+    width: 100%;
+    padding: 8px;
+    resize: vertical;
+    border: 1px solid #0b0014;
+    font-family: 'Montserrat', sans-serif;
+    /* Color del borde */
+    border-radius: 4px;
+    background-color: #0b0014;
+    /* Color del texto */
+  }
+
+  .observations-textarea::placeholder {
+    color: #0b0014;
+    /* Color del texto de marcador de posición */
+  }
+
+  /* Estilos para el modal */
+  .modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #0B0014;
+  }
+
+  .data {
+    margin-bottom: 10px;
+    color: #0B0014;
+  }
+
+  .text {
+    color: #0B0014;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .acceptButton {
+    background-color: green;
+    color: white;
+  }
+
+  .rejectButton {
+    background-color: red;
+    color: white;
+  }
+
+  .button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
   }
 }
 
@@ -165,12 +279,12 @@
     margin-bottom: 0.5rem;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
-    color: #0B0014; 
+    color: #0B0014;
     font-weight: bold;
     text-align: center;
   }
 
-  .column input,
+  .column input[type="number"],
   .column select {
     display: block;
     width: 100%;
@@ -191,7 +305,7 @@
     align-items: center;
   }
 
-  .button-submit {
+  .submit-button {
     flex: 20;
     width: 100%;
     background-color: #960200;
@@ -206,18 +320,135 @@
     cursor: pointer;
   }
 
-  .button-cancel {
-    flex: 20;
-    width: 100%;
+  .product-button {
     background-color: #960200;
     color: white;
     border: none;
     padding: 10px 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    font-size: 14px;
-    margin-top: 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     border-radius: 6px;
     cursor: pointer;
+  }
+
+  .product-button:hover {
+    background-color: #750100;
+  }
+
+  .product-button:focus {
+    outline: none;
+  }
+
+  .product-button:active {
+    background-color: #550100;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-label {
+    margin-left: 8px;
+    color: #0b0014;
+    /* Color del texto */
+  }
+
+  /* Estilos para el campo de observaciones */
+  .observations-container {
+    margin-top: 16px;
+  }
+
+  .observations-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #0B0014;
+    font-weight: bold;
+  }
+
+  .observations-textarea {
+    width: 100%;
+    padding: 8px;
+    resize: vertical;
+    border: 1px solid #0b0014;
+    font-family: 'Montserrat', sans-serif;
+
+    /* Color del borde */
+    border-radius: 4px;
+    background-color: #0b0014;
+    /* Color del texto */
+
+  }
+
+  .observations-textarea::placeholder {
+    color: #0b0014;
+    /* Color del texto de marcador de posición */
+  }
+
+  /* Estilos para el modal */
+  .modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    width: 100%;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #0B0014;
+  }
+
+  .data {
+    margin-bottom: 10px;
+    color: #0B0014;
+  }
+
+  .text {
+    color: #0B0014;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .acceptButton {
+    background-color: green;
+    color: white;
+  }
+
+  .rejectButton {
+    background-color: red;
+    color: white;
+  }
+
+  .button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
   }
 }
