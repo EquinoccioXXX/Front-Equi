@@ -1,0 +1,213 @@
+.container {
+    background-color: #E7EFC5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Bebas Neue';
+}
+
+.contentBox {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.inputRow {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.inputId {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.buttonSearch {
+    width: 150px;
+    background-color: #0B0014;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.title {
+    font-family: 'Bebas Neue';
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+.result {
+    padding: 10px;
+}
+
+.resultField {
+    margin-bottom: 10px;
+    font-family: 'Montserrat';
+    /* Aumentamos el espacio entre los campos */
+}
+
+.result h2 {
+    font-family: 'Montserrat';
+    margin-bottom: 10px;
+}
+
+.resultItem {
+    border: 1.5px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.resultProperties {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resultField {
+    margin-bottom: 10px;
+    font-family: 'Montserrat';
+}
+
+.resultButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.editButton {
+    background-color: #0B0014;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Montserrat';
+    width: 150px;
+}
+
+
+.deleteButton {
+    background-color: #FF0000;
+    color: white;
+    padding: 10px 20px;
+    /* Ajusta el tamaño de los botones */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Montserrat';
+    width: 150px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+
+    width: 400px;
+    /* Ajusta el ancho según tus necesidades */
+    margin: 0 auto;
+
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.modal h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modalButtons button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.confirmButton {
+    background-color: red;
+    color: white;
+}
+
+.cancelButton {
+    background-color: #0B0014;
+    color: white;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+@media (max-width: 767px) {
+    .resultItem {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobileResultItem {
+        display: flex;
+        justify-content: space-between;
+    }
+}
