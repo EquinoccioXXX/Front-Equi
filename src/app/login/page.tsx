@@ -100,7 +100,7 @@ export default function LoginPage() {
                 <div className={styles['password-container']}>
                     <div className={styles['password-text-container']}>
                         <p className={styles.password}>Contraseña</p>
-                        <p className={styles['forgot-password']}>¿Has olvidado tu contraseña?</p>
+                        <p onClick={e=>router.push('/recover-password')} className={styles['forgot-password']}>¿Has olvidado tu contraseña?</p>
                     </div>
                     <div className={styles['input-container']}>
                         <input
