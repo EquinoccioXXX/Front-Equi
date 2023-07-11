@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './createSalesPage.module.css';
 import Confirmation from '../../../components/Confirmation/Confirmation';
 import useAxios from 'axios-hooks';
+import { useUserContext } from '../../../context/userContext';
 
 interface Producto {
     nombre: string;
@@ -32,13 +33,14 @@ const productos: Producto[] = [
 ];
 
 const CreateSalesPage = () => {
+    const { user } = useUserContext();
     const [salesData, setSalesData] = useState<SalesData>({
         VentIdVent: 0,
         VentProducto: '',
         VentCantidad: 0,
         VentSubTotal: 0,
         VentTotal: 0,
-        VentUser: 'Juan Perez',
+        VentUser: user ? user.nombre : "Indefinido",
         VentObs: '',
         VentFecha: new Date().toLocaleString(),
     });

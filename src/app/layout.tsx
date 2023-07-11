@@ -1,5 +1,6 @@
 import './globals.css'
 import { AuthContextProvider } from './context/authContext'
+import { UserProvider } from './context/userContext';
 
 const links = [{
   label: "Home",
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthContextProvider>
-          {children}
+          <UserProvider>
+            {children}
+          </UserProvider>
         </AuthContextProvider>
       </body>
     </html>

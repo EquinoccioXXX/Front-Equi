@@ -5,12 +5,18 @@ import { useEffect, useState } from 'react';
 import useAxios from "axios-hooks";
 import { useAuthContext } from '../context/authContext';
 import Data from '../interfaces/data';
+import User from '../interfaces/user';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useUserContext } from '../context/userContext';
+
 
 
 
 
 export default function LoginPage() {
+    const { setUser } = useUserContext();
     const router = useRouter();
 
     //Variables de username y password
@@ -35,16 +41,46 @@ export default function LoginPage() {
 
     //Acción de hacer login
     const loginUser = async (username: string, password: string) => {
-        const data = await login({
-            data: {
-                usrEmail: username,
-                usrPassword: password
-            },
-        });
-        console.log(data.data);
-        setToken(data.data.tokens.accessToken);
-        router.push('/inicio');
-        
+        try {
+            const data = await login({
+                data: {
+                    usrEmail: username,
+                    usrPassword: password
+                },
+            });
+            const userData = data.data.user;
+            console.log(data.data);
+            setToken(data.data.tokens.accessToken);
+
+            const user: User = {
+                nombre: userData.usrNombre,
+                apPaterno: userData.usrApPaterno,
+                apMaterno: userData.usrApMaterno,
+                ci: userData.usrCi,
+                fechaNacimiento: userData.usrFechaNacimiento,
+                sexo: userData.usrSexo,
+                direccion: userData.usrDireccion,
+                celular: userData.usrCelular,
+                email: userData.usrEmail,
+                tipoUsuario: userData.usrTipoUsuario,
+                foto: userData.usrFoto,
+                estado: userData.usrEstado,
+            };
+
+            setUser(user);
+            router.push('/inicio');
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                let errorMessage = error.response.data.message;
+                if (Array.isArray(errorMessage)) {
+                    errorMessage = errorMessage.join(', ');
+                }
+
+                toast.error(errorMessage);
+            } else {
+                toast.error("Error en el servidor. Por favor, inténtalo de nuevo más tarde.");
+            }
+        }
     };
 
 
@@ -83,12 +119,12 @@ export default function LoginPage() {
                 </div>
 
                 <div className={styles['username-container']}>
-                    <p className={styles.username}>Nombre de usuario</p>
+                    <p className={styles.username}>Email</p>
 
                     <div className={styles['input-container']}>
                         <input
                             type="text"
-                            placeholder="Introduzca su nombre de usuario"
+                            placeholder="Introduzca su email"
                             value={usernameValue}
                             onChange={handleInputUsernameChange}
                             className={styles['input-field']
@@ -100,7 +136,7 @@ export default function LoginPage() {
                 <div className={styles['password-container']}>
                     <div className={styles['password-text-container']}>
                         <p className={styles.password}>Contraseña</p>
-                        <p onClick={e=>router.push('/recover-password')} className={styles['forgot-password']}>¿Has olvidado tu contraseña?</p>
+                        <p onClick={e => router.push('/recover-password')} className={styles['forgot-password']}>¿Has olvidado tu contraseña?</p>
                     </div>
                     <div className={styles['input-container']}>
                         <input
@@ -121,6 +157,7 @@ export default function LoginPage() {
                 </button>
 
             </div>
+            <ToastContainer />
         </div>
     )
 }

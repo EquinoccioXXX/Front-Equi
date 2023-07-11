@@ -5,8 +5,9 @@ import useAxios from "axios-hooks";
 import { useAuthContext } from '../context/authContext';
 import Data from '../interfaces/data';
 import { useRouter } from 'next/navigation';
-
-//Interfaz para el tipo de dato del formulario
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AxiosResponse, AxiosError } from 'axios';//Interfaz para el tipo de dato del formulario
 
 interface FormData {
     nombre: string;
@@ -99,7 +100,7 @@ export default function LoginPage() {
 
         if (!formData.carnet_identidad) {
             newErrors.carnet_identidad = 'El carnet de identidad es requerido';
-        }else if(formData.carnet_identidad.length <= 7){
+        } else if (formData.carnet_identidad.length < 7) {
             newErrors.carnet_identidad = 'El carnet de identidad debe tener por lo menos 7 carácteres';
         }
 
@@ -174,33 +175,43 @@ export default function LoginPage() {
     //Acción de hacer register
     const RegisterUser = async () => {
         const fechaObj: Date = new Date(formData.fecha_nacimiento);
-        const nuevaFecha: string = fechaObj.toLocaleDateString('es-ES');
-        const newSexo:string = (formData.sexo=="masculino")? 'm':'f'
+        //const nuevaFecha: string = fechaObj.toLocaleDateString('es-ES');
+        const newSexo: string = (formData.sexo == "masculino") ? 'm' : 'f'
 
 
-        const data = await register({
+        try {
+            const data = await register({
 
-            data: {
-                "usrNombre": formData.nombre,
-                "usrApPaterno": formData.apellido_paterno,
-                "usrApMaterno": formData.apellido_materno,
-                "usrCi": formData.carnet_identidad,
-                "usrFechaNacimiento": nuevaFecha,
-                "usrSexo": newSexo,
-                "usrDireccion": formData.direccion,
-                "usrCelular": formData.celular,
-                "usrTipoUsuario": "Administrador",
-                "usrEmail": formData.email,
-                "usrPassword": formData.password,
-                "usrFoto": formData.foto,
-                "usrEstado": true
+                data: {
+                    "usrNombre": formData.nombre,
+                    "usrApPaterno": formData.apellido_paterno,
+                    "usrApMaterno": formData.apellido_materno,
+                    "usrCi": formData.carnet_identidad,
+                    "usrFechaNacimiento": fechaObj,
+                    "usrSexo": newSexo,
+                    "usrDireccion": formData.direccion,
+                    "usrCelular": formData.celular,
+                    "usrTipoUsuario": "Administrador",
+                    "usrEmail": formData.email,
+                    "usrPassword": formData.password,
+                    "usrFoto": formData.foto,
+                    "usrEstado": true
+                }
+                ,
+            });
+            console.log(data.data);
+            setToken(data.data.tokens.accessToken);
+            router.push('/login');
+        } catch (error: any) {
+            if (isAxiosError(error) && error.response) {
+                const errorMessage = (error.response.data.message as string[]).join(', ');
+                toast.error(errorMessage);
             }
-            ,
-        });
-        console.log(data.data);
-        setToken(data.data.tokens.accessToken);
-        router.push('/inicio');
+        }
     };
+    function isAxiosError(error: any): error is AxiosError {
+        return error && error.isAxiosError;
+    }
 
 
     //Verificacion de email correcto
@@ -312,6 +323,8 @@ export default function LoginPage() {
 
                 </div>
             </form>
+
+            <ToastContainer />
         </div>
 
     );
