@@ -15,9 +15,9 @@ const InicioPage = () => {
                 <div className={styles['columns']}>
                     <p className={styles.title}>Inicio</p>
                     <div className={styles['inicio-container']}>
-                        <Card image="/assets/ventas.jpg" title="Venta" link='/inicio' />
+                        <Card image="/assets/ventas.jpg" title="Venta" link='/inicio/venta' />
                         <Card image="/assets/pedidos.jpg" title="Pedidos" link='/inicio' />
-                        <Card image="/assets/reportes.png" title="Reportes" link='/inicio' />
+                        <Card image="/assets/usuarios.png" title="Usuarios" link='/inicio/usuarios' />
                         <Card image="/assets/proveedores.jpg" title="Proveedores" link='/inicio' />
                         <Card image="/assets/ingresos.jpg" title="Ingresos" link='/inicio' />
                         <Card image="/assets/clientes.jpg" title="Clientes" link='/inicio' />
