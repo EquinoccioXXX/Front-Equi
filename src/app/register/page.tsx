@@ -191,7 +191,7 @@ export default function LoginPage() {
                     "usrSexo": newSexo,
                     "usrDireccion": formData.direccion,
                     "usrCelular": formData.celular,
-                    "usrTipoUsuario": "Administrador",
+                    "usrTipoUsuario": "Usuario",
                     "usrEmail": formData.email,
                     "usrPassword": formData.password,
                     "usrFoto": formData.foto,

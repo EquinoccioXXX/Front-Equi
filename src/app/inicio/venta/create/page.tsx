@@ -6,6 +6,8 @@ import styles from './createSalesPage.module.css';
 import Confirmation from '../../../components/Confirmation/Confirmation';
 import useAxios from 'axios-hooks';
 import { useUserContext } from '../../../context/userContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Producto {
     nombre: string;
@@ -21,6 +23,8 @@ interface SalesData {
     VentUser: string;
     VentObs: string;
     VentFecha: string;
+    VentCodFactura: string;
+    VentIdPedido: number
 }
 
 const productos: Producto[] = [
@@ -29,7 +33,6 @@ const productos: Producto[] = [
     { nombre: 'Producto 3', precio: 30 },
     { nombre: 'Producto 4', precio: 40 },
 
-    // Agrega más productos según tus necesidades
 ];
 
 const CreateSalesPage = () => {
@@ -43,6 +46,8 @@ const CreateSalesPage = () => {
         VentUser: user ? user.nombre : "Indefinido",
         VentObs: '',
         VentFecha: new Date().toLocaleString(),
+        VentCodFactura: "200 doscientos",
+        VentIdPedido: 200
     });
     const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
 
@@ -74,15 +79,19 @@ const CreateSalesPage = () => {
 
 
     const CreateSale = async () => {
-
-        const data = await create({
-            data: {
-                ...salesData,
-                VentCantidad: parseInt(salesData.VentCantidad)
-            },
-        });
-        console.log(data.data);
-
+        try {
+            const data = await create({
+                data: {
+                    ...salesData,
+                    VentCantidad: parseInt(salesData.VentCantidad)
+                },
+            });
+            console.log(data.data);
+            toast.success('Venta creada exitosamente'); // Mostrar toast de éxito
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error('Error al crear la venta'); // Mostrar toast de error
+        }
     };
 
 
@@ -215,6 +224,7 @@ const CreateSalesPage = () => {
                     setIsVisible={setIsConfirmationVisible}
                 />
             )}
+            <ToastContainer />
         </>
     );
 };
