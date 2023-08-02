@@ -204,7 +204,7 @@ export default function LoginPage() {
             router.push('/login');
         } catch (error: any) {
             if (isAxiosError(error) && error.response) {
-                const errorMessage = (error.response.data.message as string[]).join(', ');
+                const errorMessage = (error.response.data as string[]).join(', ');
                 toast.error(errorMessage);
             }
         }
