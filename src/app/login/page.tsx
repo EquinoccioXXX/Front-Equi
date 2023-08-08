@@ -69,7 +69,7 @@ export default function LoginPage() {
 
             setUser(user);
             router.push('/inicio');
-        } catch (error) {
+        } catch (error:any) {
             if (error.response && error.response.data && error.response.data.message) {
                 let errorMessage = error.response.data.message;
                 if (Array.isArray(errorMessage)) {

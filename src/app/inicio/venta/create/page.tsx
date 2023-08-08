@@ -83,7 +83,7 @@ const CreateSalesPage = () => {
             const data = await create({
                 data: {
                     ...salesData,
-                    VentCantidad: parseInt(salesData.VentCantidad)
+                    VentCantidad: salesData.VentCantidad
                 },
             });
             console.log(data.data);

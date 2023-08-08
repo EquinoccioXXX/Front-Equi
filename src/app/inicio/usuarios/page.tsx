@@ -54,7 +54,7 @@ const UserManagementPage: React.FC = () => {
             const data: User[] = response.data;
 
             setUsers(data);
-        } catch (error) {
+        } catch (error:any) {
             console.error('Error:', error);
             setUsers([]);
             toast.error('Error al obtener los usuarios');
@@ -93,7 +93,7 @@ const UserManagementPage: React.FC = () => {
             setUsers(updatedUsers);
             setShowEditModal(false);
             toast.success('Usuario actualizado exitosamente');
-        } catch (error) {
+        } catch (error:any) {
             console.error('Error:', error);
 
             if (error.response && error.response.data && error.response.data.message) {
@@ -116,7 +116,7 @@ const UserManagementPage: React.FC = () => {
             toast.success('El usuario se eliminó correctamente');
             setShowModal(false);
             fetchUsers();
-        } catch (error) {
+        } catch (error:any) {
             console.error('Error:', error);
             toast.error('Ocurrió un error al eliminar el usuario');
         }

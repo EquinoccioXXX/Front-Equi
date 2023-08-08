@@ -37,7 +37,7 @@ const SearchPage: React.FC = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}api/ventas`);
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}api/ventas/allVent`);
             const data: SearchResult[] = response.data;
 
             const filteredResults = data.filter((result) =>
