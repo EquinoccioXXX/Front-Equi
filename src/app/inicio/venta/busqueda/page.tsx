@@ -55,9 +55,15 @@ const SearchPage: React.FC = () => {
     };
 
     const handleEditModal = (result: SearchResult) => {
-        setEditResult(result);
+        // Formatear la fecha en un formato válido para el campo de fecha
+        const formattedDate = result.VentFecha.split('.')[0];
+        
+        setEditResult({
+          ...result,
+          VentFecha: formattedDate,
+        });
         setShowEditModal(true);
-    };
+      };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -289,7 +295,7 @@ const SearchPage: React.FC = () => {
                                     id="fecha"
                                     type="datetime-local"
                                     name="VentFecha"
-                                    value={editResult.VentFecha}
+                                    value={editResult.VentFecha} // Establecer el valor del campo de fecha con editResult.VentFecha
                                     onChange={handleInputChange}
                                     style={{ padding: '5px' }}
                                 />

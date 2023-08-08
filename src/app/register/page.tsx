@@ -20,9 +20,23 @@ interface FormData {
     celular: string;
     email: string;
     password: string;
-    foto: string;
+    foto: File | null;
     repeat_password: string;
 }
+interface FormErrors {
+    nombre: string;
+    apellido_paterno: string;
+    apellido_materno: string;
+    carnet_identidad: string;
+    fecha_nacimiento: string;
+    sexo: string;
+    direccion: string;
+    celular: string;
+    email: string;
+    password: string;
+    foto: string;
+    repeat_password: string;
+  }
 
 export default function LoginPage() {
     const router = useRouter();
@@ -42,12 +56,12 @@ export default function LoginPage() {
         celular: '',
         email: '',
         password: '',
-        foto: '',
+        foto: null,
         repeat_password: ''
     });
 
     //UseState para controlar el estado de los errores
-    const [errors, setErrors] = useState<FormData>({
+    const [errors, setErrors] = useState<FormErrors>({
         nombre: '',
         apellido_paterno: '',
         apellido_materno: '',
@@ -67,11 +81,15 @@ export default function LoginPage() {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files && event.target.files[0];
+        setFormData({ ...formData, foto: file || null });
+    };
 
     //Verificación de los inputs al formulario y en caso de ser aceptados mandar el formulario
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        let newErrors = {
+        let newErrors: FormErrors  = {
             nombre: '',
             apellido_paterno: '',
             apellido_materno: '',
@@ -140,16 +158,13 @@ export default function LoginPage() {
         }
 
         if (!formData.foto) {
-            newErrors.foto = 'La url de imágen es requerdida';
+            newErrors.foto = 'Debe seleccionar una imagen';
         }
-
         if (!formData.repeat_password) {
             newErrors.repeat_password = 'Se requiere repetir la contraseña';
         } else if (formData.repeat_password != formData.password) {
             newErrors.repeat_password = 'Las contraseñas no son iguales';
         }
-
-
 
         setErrors(newErrors);
 
@@ -264,9 +279,14 @@ export default function LoginPage() {
                         </div>
                         {errors.fecha_nacimiento && <span className={styles['error']}>{errors.fecha_nacimiento}</span>}
 
-                        <label htmlFor="foto">Dirección de la imagen:</label>
+                        <label htmlFor="foto">Seleccione una imagen:</label>
                         <div className={styles['input-container']}>
-                            <input type="text" name="foto" value={formData.foto} onChange={handleInputChange} className={styles['input-field']} />
+                            <input
+                                type="file" // Change the input type to 'file'
+                                name="foto"
+                                onChange={handleFileChange} // Use the new file input handler
+                                className={styles['input-field']}
+                            />
                         </div>
                         {errors.foto && <span className={styles['error']}>{errors.foto}</span>}
 
