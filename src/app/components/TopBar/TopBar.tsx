@@ -9,14 +9,14 @@ import { useUserContext } from '../../context/userContext';
 
 interface TopBarProps {
     user: {
-      nombre: string;
-      foto: string;
+        nombre: string;
+        foto: string;
     } | null;
-  }
+}
 
 const TopBar: React.FC = () => {
     const { user } = useUserContext();
-    const userImageSrc = user?.foto || '/assets/profile.png';
+    const userImageSrc = user?.foto ? `${process.env.NEXT_PUBLIC_BASE_URL}${user.foto}` : '/assets/profile.png';
 
 
     return (

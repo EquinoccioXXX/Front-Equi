@@ -20,7 +20,7 @@ interface FormData {
     celular: string;
     email: string;
     password: string;
-    foto: File | null;
+    foto: string | null;
     repeat_password: string;
 }
 interface FormErrors {
@@ -36,7 +36,7 @@ interface FormErrors {
     password: string;
     foto: string;
     repeat_password: string;
-  }
+}
 
 export default function LoginPage() {
     const router = useRouter();
@@ -81,15 +81,40 @@ export default function LoginPage() {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
-        setFormData({ ...formData, foto: file || null });
+
+        if (file) {
+            try {
+                const base64Image = await readFileAsBase64(file);
+                setFormData({ ...formData, foto: base64Image });
+            } catch (error) {
+                console.error("Error converting image to base64:", error);
+            }
+        }
+    };
+
+    const readFileAsBase64 = (file: File): Promise<string> => {
+        return new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (typeof reader.result === "string") {
+                    resolve(reader.result);
+                } else {
+                    reject(new Error("Failed to read file as base64."));
+                }
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
     };
 
     //Verificación de los inputs al formulario y en caso de ser aceptados mandar el formulario
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        let newErrors: FormErrors  = {
+        let newErrors: FormErrors = {
             nombre: '',
             apellido_paterno: '',
             apellido_materno: '',
@@ -209,7 +234,7 @@ export default function LoginPage() {
                     "usrTipoUsuario": "Usuario",
                     "usrEmail": formData.email,
                     "usrPassword": formData.password,
-                    "usrFoto": formData.foto,
+                    "usrFoto": formData.foto, // Cambia formData.foto por la imagen en base64
                     "usrEstado": true
                 }
                 ,
@@ -218,9 +243,14 @@ export default function LoginPage() {
             setToken(data.data.tokens.accessToken);
             router.push('/login');
         } catch (error: any) {
-            if (isAxiosError(error) && error.response) {
-                const errorMessage = (error.response.data as string[]).join(', ');
-                toast.error(errorMessage);
+            if (error.response && error.response.data) {
+                const errorMessage = error.response.data.message;
+
+                if (errorMessage) {
+                    toast.error(errorMessage);
+                }
+            } else {
+                console.error("Error:", error);
             }
         }
     };
